@@ -74,4 +74,4 @@ for case in cases:
     o = subprocess.run(['go', 'run', 'go/main.go', case], stdout=subprocess.PIPE)
     in_golang = o.stdout.decode('utf-8').strip()
 
-    print(case, in_python == in_golang)
+    print('%s: matched=%s python=[%s] golang=[%s]' % (case, in_python == in_golang, in_python, in_golang))
