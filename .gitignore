@@ -1,0 +1,5 @@
+go/vendor
+.sw?
+.*.sw?
+.tmp
+tmp
