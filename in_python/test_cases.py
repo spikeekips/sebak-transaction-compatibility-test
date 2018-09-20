@@ -1,3 +1,4 @@
+import unittest
 import subprocess
 import rlp
 from rlp.sedes import text
@@ -59,19 +60,21 @@ def test_insideSerializable_struct():
     return p(b)
 
 
-cases = (
-    'bytes',
-    'string',
-    'uint64_99',
-    'uint64_max',
-    'text_struct',
-    'insideSerializable_struct',
-)
+class TestRLPHash(unittest.TestCase):
+    cases = (
+        'bytes',
+        'string',
+        'uint64_99',
+        'uint64_max',
+        'text_struct',
+        'insideSerializable_struct',
+    )
 
-for case in cases:
-    f = globals()['test_%s' % case]
-    in_python = f()
-    o = subprocess.run(['go', 'run', 'go/main.go', case], stdout=subprocess.PIPE)
-    in_golang = o.stdout.decode('utf-8').strip()
+    def test_cases(self):
+        for case in self.cases:
+            f = globals()['test_%s' % case]
+            in_python = f()
+            o = subprocess.run(['go', 'run', 'go/main.go', case], stdout=subprocess.PIPE)
+            in_golang = o.stdout.decode('utf-8').strip()
 
-    print('%s: matched=%s python=[%s] golang=[%s]' % (case, in_python == in_golang, in_python, in_golang))
+            self.assertEqual(in_python, in_golang)

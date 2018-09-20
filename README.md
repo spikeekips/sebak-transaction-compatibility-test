@@ -9,10 +9,11 @@
 ## Test
 
 ```
-$ cd go
+$ cd in_golang
 $ dep ensure -v
 ```
 
+Run test
 ```
-$ python case.py
+$ python -m unittest discover -v -s ./
 ```

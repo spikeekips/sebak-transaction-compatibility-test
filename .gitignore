@@ -1,5 +1,6 @@
-go/vendor
+in_golang/vendor
 .sw?
 .*.sw?
 .tmp
 tmp
+__pycache__
